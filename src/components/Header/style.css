@@ -1,0 +1,37 @@
+.main-header{
+    display: flex;
+    padding-top: 25px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.main-header__logo{
+    color: #fff;
+    font-weight: 600;
+}
+.main-header__button{
+    margin-left: auto;
+    width: 120px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid #D8E1E6;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #fff;
+    padding: 5px 0 5px 25px;
+    position: relative;
+    font-size: 16px;
+    font-weight: 700;
+}
+.main-header__button:before{
+    content: '';
+    background: url(../../img/user.svg) no-repeat;
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    left: 14px;
+    top: 6px;
+}
+.main-header__button:hover{
+    background-color: #34455f
+}
