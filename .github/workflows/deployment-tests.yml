@@ -51,7 +51,7 @@ jobs:
             // Find issues that match the server name pattern
             const matchingIssues = issues.data.filter(issue => 
               issue.title.includes(serverName) && 
-              issue.title.includes('Deployment')
+              issue.title.includes('Tests checklist')
             );
             
             // Close all matching issues
