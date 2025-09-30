@@ -1,5 +1,3 @@
-.github/workflows/create-deployment-issue.yml
-
 name: Create Deployment Issue
 
 on:
