@@ -1,3 +1,5 @@
+.github/workflows/create-deployment-issue.yml
+
 name: Create Deployment Issue
 
 on:
@@ -111,7 +113,7 @@ jobs:
               repo: context.repo.repo,
               title: issueTitle,
               body: issueBody,
-              labels: ['deployment', serverName, version]
+              labels: [serverName, version]
             });
             
             console.log(`Created issue #${issue.data.number}: ${issue.data.title}`);
