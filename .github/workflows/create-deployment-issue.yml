@@ -1,0 +1,105 @@
+name: Create Deployment Issue
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number'
+        required: true
+        type: string
+      server_name:
+        description: 'Server name'
+        required: true
+        type: string
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    
+    steps:
+      - name: Close existing issue for this server
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const serverName = '${{ inputs.server_name }}';
+            
+            // Search for open issues with the server name in the title
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100
+            });
+            
+            // Find issues that match the server name pattern
+            const matchingIssues = issues.data.filter(issue => 
+              issue.title.includes(serverName) && 
+              issue.title.includes('Deployment')
+            );
+            
+            // Close all matching issues
+            for (const issue of matchingIssues) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+              console.log(`Closed issue #${issue.number}: ${issue.title}`);
+            }
+
+      - name: Create new deployment issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const version = '${{ inputs.version }}';
+            const serverName = '${{ inputs.server_name }}';
+            
+            const issueTitle = `Deployment ${version} - ${serverName}`;
+            
+            const issueBody = `## Deployment Checklist for ${serverName}
+            
+            **Version:** ${version}
+            **Server:** ${serverName}
+            **Created:** ${new Date().toISOString().split('T')[0]}
+            
+            ### Pre-deployment Tasks
+            - [ ] Backup database
+            - [ ] Verify dependencies
+            - [ ] Review configuration files
+            - [ ] Check server resources (disk space, memory)
+            
+            ### Deployment Tasks
+            - [ ] Stop application services
+            - [ ] Deploy version ${version}
+            - [ ] Run database migrations
+            - [ ] Update configuration
+            - [ ] Start application services
+            
+            ### Post-deployment Tasks
+            - [ ] Verify application is running
+            - [ ] Run smoke tests
+            - [ ] Check logs for errors
+            - [ ] Monitor performance metrics
+            - [ ] Notify team of completion
+            
+            ### Rollback Plan
+            - [ ] Document rollback procedure if needed
+            - [ ] Keep previous version backup accessible
+            `;
+            
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: issueTitle,
+              body: issueBody,
+              labels: ['deployment', serverName, version]
+            });
+            
+            console.log(`Created issue #${issue.data.number}: ${issue.data.title}`);
+            console.log(`Issue URL: ${issue.data.html_url}`);
