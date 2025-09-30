@@ -1,4 +1,4 @@
-name: Create Deployment Issue
+name: Create Deployment Tests Issue
 
 on:
   workflow_dispatch:
@@ -73,7 +73,7 @@ jobs:
             const version = '${{ inputs.version }}';
             const serverName = '${{ inputs.server_name }}';
             
-            const issueTitle = `Deployment ${serverName} - **v.${version}**`;
+            const issueTitle = `Tests check-list for ${serverName} - v.${version}`;
             
             const issueBody = `## Deployment Checklist for ${serverName}
             
