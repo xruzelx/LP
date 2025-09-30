@@ -73,7 +73,7 @@ jobs:
             const version = '${{ inputs.version }}';
             const serverName = '${{ inputs.server_name }}';
             
-            const issueTitle = `Deployment ${version} - ${serverName}`;
+            const issueTitle = `Deployment ${serverName} - **v.${version}**`;
             
             const issueBody = `## Deployment Checklist for ${serverName}
             
@@ -111,7 +111,7 @@ jobs:
               repo: context.repo.repo,
               title: issueTitle,
               body: issueBody,
-              labels: [serverName, version]
+              labels: [serverName]
             });
             
             console.log(`Created issue #${issue.data.number}: ${issue.data.title}`);
