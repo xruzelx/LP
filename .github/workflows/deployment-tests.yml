@@ -81,7 +81,7 @@ jobs:
             **Server:** ${serverName}
             **Created:** ${new Date().toISOString().split('T')[0]}
 
-            _If some check fails: add **Bug** label and create issue in Jira_
+            _If some check fails: add **Bug** label, leave a comment and create an issue in Jira_
             
             ### Vasya
             - [ ] Readings patients' pages open
