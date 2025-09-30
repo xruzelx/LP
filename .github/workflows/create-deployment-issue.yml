@@ -10,7 +10,20 @@ on:
       server_name:
         description: 'Server name'
         required: true
-        type: string
+        type: choice
+        options:
+          - alpha
+          - demo-prod
+          - app
+          - erasmusmc
+          - uza
+          - evone-demo
+          - decin
+          - kosice
+          - cleveland
+          - maltacare
+          - homecare
+          - pvi
 
 jobs:
   create-issue:
