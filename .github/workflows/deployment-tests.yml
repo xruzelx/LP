@@ -73,37 +73,62 @@ jobs:
             const version = '${{ inputs.version }}';
             const serverName = '${{ inputs.server_name }}';
             
-            const issueTitle = `Tests check-list for ${serverName} - v.${version}`;
+            const issueTitle = `Tests checklist for ${serverName} - v.${version}`;
             
             const issueBody = `## Deployment Checklist for ${serverName}
             
             **Version:** ${version}
             **Server:** ${serverName}
             **Created:** ${new Date().toISOString().split('T')[0]}
+
+            _If some check fails: add **Bug** label and create issue in Jira_
             
-            ### Pre-deployment Tasks
-            - [ ] Backup database
-            - [ ] Verify dependencies
-            - [ ] Review configuration files
-            - [ ] Check server resources (disk space, memory)
-            
-            ### Deployment Tasks
-            - [ ] Stop application services
-            - [ ] Deploy version ${version}
-            - [ ] Run database migrations
-            - [ ] Update configuration
-            - [ ] Start application services
-            
-            ### Post-deployment Tasks
-            - [ ] Verify application is running
-            - [ ] Run smoke tests
+            ### Vasya
+            - [ ] Readings patients' pages open
+            - [ ] Readings parameters load and each parameter has data
+            - [ ] Readings parameters charts works, zoom works, 5-munute interval detection works
+            - [ ] Readings waveforms charts works with aggregated data and detailed data
+            - [ ] Amount of requests while zooming waveforms charts in Readings
+            - [ ] Readings pvi chart works
+            - [ ] Readings medication chart works
+            - [ ] All Readings charts loading within reasonable limits
+            - [ ] All Readings charts syncronized by timeline
             - [ ] Check logs for errors
-            - [ ] Monitor performance metrics
-            - [ ] Notify team of completion
             
-            ### Rollback Plan
-            - [ ] Document rollback procedure if needed
-            - [ ] Keep previous version backup accessible
+            ### Kate
+            - [ ] Analytics project page open
+            - [ ] Analytics patient-select page open
+            - [ ] Analytics patients' pages open
+            - [ ] Analytics parameters load
+            - [ ] Analytics parameters charts works, zoom works, 5-munute interval detection works
+            - [ ] Analytics waveforms charts works
+            - [ ] Amount of requests while zooming waveforms charts in Analytics
+            - [ ] Analytics pvi chart works
+            - [ ] Analytics Alarms history chart works
+            - [ ] Analytics threshold settings works
+            - [ ] Analytics set alarm settings settings works
+            - [ ] All Analytics charts loading within reasonable limits
+            - [ ] All Analytics charts syncronized by timeline
+            - [ ] Check logs for errors
+            
+            ### Soib
+            - [ ] Reports page works
+            - [ ] Reports time filter works
+            - [ ] Reports charts and statistic work
+            - [ ] Patient management page works
+            - [ ] Patient management page add/remove users/devices/patients functionality works
+            - [ ] Patient management page add/remove/edit project functionality works
+            - [ ] Patient management page all types project links work correctly
+            - [ ] Check logs for errors
+            
+            ### Slava
+            - [ ] Calculations works
+            - [ ] Check containers logs on server for errors
+            - [ ] Find similar functionality works
+            - [ ] Simulator page open
+            - [ ] Simulator charts and mp/cs parameters work
+            - [ ] Simulator start/stop/pause/resume works
+            - [ ] Simulator patient's/lungs/ventilator/effort settings work
             `;
             
             const issue = await github.rest.issues.create({
